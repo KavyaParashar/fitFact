@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap Simple Navbar with Search Box</title>
+<link href="https://fonts.googleapis.com/css?family=Raleway|Open+Sans" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+	body {
+		background: #eeeeee;
+		font-family: 'Open Sans', sans-serif;
+	}
+    .form-inline {
+        display: inline-block;
+    }
+	.navbar {
+		font-size: 14px;
+		background: #fff;
+		padding-left: 16px;
+		padding-right: 16px;
+		border-bottom: 1px solid #d6d6d6;
+		box-shadow: 0 0 4px rgba(0,0,0,.1);		
+	}
+	.navbar .navbar-brand {
+		color: #555;
+		padding-left: 0;
+		font-size: 20px;
+		padding-right: 50px;
+		font-family: 'Raleway', sans-serif;
+		text-transform: uppercase;
+	}
+	.navbar .navbar-brand b {
+		font-weight: bold;
+		color: #f04f01;
+	}
+	.navbar ul.nav li {
+		font-size: 96%;
+		font-weight: bold;		
+		text-transform: uppercase;
+	}
+	.navbar ul.nav li.active a, .navbar ul.nav li.active a:hover, .navbar ul.nav li.active a:focus {
+		color: #f04f01 !important;
+		background: transparent !important;
+	}
+	.search-box {
+        position: relative;
+    }
+	.search-box input.form-control, .search-box .btn {
+		font-size: 14px;
+		border-radius: 2px !important;
+	}
+	.search-box .input-group-btn {
+		padding-left: 4px;		
+	}
+	.search-box input.form-control:focus {
+		border-color: #f04f01;
+		box-shadow: 0 0 8px rgba(240,79,1,0.2);
+	}
+	.search-box .btn-primary, .search-box .btn-primary:active {
+		font-weight: bold;
+		background: #f04f01;
+		border-color: #f04f01;
+		text-transform: uppercase;
+		min-width: 90px;
+	}
+	.search-box .btn-primary:focus {
+		outline: none;
+		background: #eb4e01;
+		box-shadow: 0 0 8px rgba(240,79,1,0.2);
+	}
+	.search-box .btn span {
+		transform: scale(0.9);
+		display: inline-block;
+	}
+	.navbar ul li i {
+		font-size: 18px;
+	}
+	.navbar .dropdown-menu i {
+		font-size: 16px;
+		min-width: 22px;
+	}
+	.navbar .dropdown.open > a {
+		background: none !important;
+	}
+	.navbar .dropdown-menu {
+		border-radius: 1px;
+		border-color: #e5e5e5;
+		box-shadow: 0 2px 8px rgba(0,0,0,.05);
+	}
+	.navbar .dropdown-menu li a {
+		color: #777;
+		padding: 8px 20px;
+		line-height: normal;
+		font-size: 14px;
+	}
+	.navbar .dropdown-menu li a:hover, .navbar .dropdown-menu li a:active {
+		color: #333;
+	}
+	.navbar .navbar-form {
+		border: none;
+	}
+	@media (min-width: 992px){
+		.form-inline .input-group .form-control {
+			width: 225px;			
+		}
+	}
+	@media (max-width: 992px){
+		.form-inline {
+			display: block;
+		}
+	}
+</style>
+</head> 
+<body>
+<nav class="navbar navbar-default navbar-expand-lg navbar-light">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="#">THE <b>FIT FACT</b></a>  		
+		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+			<span class="navbar-toggler-icon"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+	</div>
+	<!-- Collection of nav links, forms, and other content for toggling -->
+	<div id="navbarCollapse" class="collapse navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li><a href="/" id="home">Home</a></li>  
+			<li><a href="/about">About</a></li>			
+			<li class="dropdown">
+				<a data-toggle="dropdown" class="dropdown-toggle" href="#">Services <b class="caret"></b></a>
+				<ul class="dropdown-menu">					
+					<li><a href="/">Predict Stress</a></li>
+					<li><a href="/">Analyze Fitness</a></li>
+					<li><a href="/">Past data analysis</a></li>
+				</ul>
+			</li>
+			<li><a href="/">Contact</a></li>
+			<li><a href="/sign-up">Sign up</a></li>
+		</ul>
+		<form class="navbar-form form-inline navbar-right ml-auto">
+			<div class="input-group search-box">
+				<input type="text" class="form-control">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-primary"><span>Search</span></button>
+				</span>
+			</div>
+
+		</form>		
+	</div>
+</nav>
+<div class="container">
+{%block content%}
+
+{%endblock%}
+</div>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+<title>Training Studio - Free CSS Template</title>
+<!--
+
+TemplateMo 548 Training Studio
+
+https://templatemo.com/tm-548-training-studio
+
+-->
+<!-- Additional CSS Files -->
+<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+
+<link rel="stylesheet" href="assets/css/templatemo-training-studio.css">
+
+</head>
+
+<body>
+
+<!-- ***** Preloader Start ***** -->
+<div id="js-preloader" class="js-preloader">
+  <div class="preloader-inner">
+    <span class="dot"></span>
+    <div class="dots">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</div>
+<!-- ***** Preloader End ***** -->
+
+
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                   
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        
+                    </ul>        
+                    
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ***** Header Area End ***** -->
+
+<!-- ***** Main Banner Area Start ***** -->
+
+   <video autoplay muted loop id="bg-video">
+        <source src="{{url_for('static', filename='gym-video.mp4')}}"/>
+    </video> 
+
+  
+		
+   
+
+    <div class="video-overlay header-text">
+        <STYle>
+            /* Style the video: 100% width and height to cover the entire window */
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+/* Add some content at the bottom of the video/page */
+.content {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Style the button used to pause/play the video */
+#myBtn {
+  width: 200px;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+#myBtn:hover {
+  background: #ddd;
+  color: black;
+}
+        </STYle>
+        <div class="caption">
+            <h6>WORK HARDER, WORK SMARTER</h6>
+            <h2>PERSONALIZED PREDICTIONS <em></em></h2>
+            <div class="main-button scroll-to-section">
+                <a href="/sign-up">SIGN-UP NOW</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+<!-- ***** Features Item Start ***** -->
+<section class="section" id="features">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section-heading">
+                    <h2>What we <em>do</em></h2>
+                    <img src={{url_for('static',filename='line-dec.png')}} alt="waves">
+                    <p font face="Arial" size="18px" color="#800000"</font> </p>In this new normal, with the advent of digital progression, keeping up with physical activities have become more important than ever before. Keeping in mind ‘social distancing’, people are unable to reach gyms, making self-motivation even more critical.
+                        The Fit Fact provides a platform to fulfill this need for motivation. Using this web application, the data from fitness bands can be given as input to the application in order to provide personalized analysis and prediction in the form of eye-catching visualizations. Based on the health information extracted, a person’s mood can be categorically predicted. Moreover, other health parameters can be time series forecasted based on existing pattern.
+                        </p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <ul class="features-items">
+                    <li class="feature-item">
+                        <div class="left-icon">
+                            <img src={{url_for('static',filename='analysis-1.jpg')}} alt="First One" style="width:150px;height:150px;">
+                        </div>
+                        <div class="right-content">
+                            <h4>ANALYSIS</h4>
+                            <p>Analyse your fitness journey with eye-catching visualizations</p>
+                            <a href="#" class="text-button">Discover More</a>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <div class="left-icon">
+                            <img src={{url_for('static',filename='analysis-2.jpg')}} alt="second One" style="width:150px;height:150px;">
+                        </div>
+                        <div class="right-content">
+                            <h4>PREDICTIONS</h4>
+                            <p>Predict fitness parameters to optimize your routine and schedules</p>
+                            <a href="#" class="text-button">Discover More</a>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <div class="left-icon">
+                            <img src={{url_for('static',filename='reports.jpg')}} alt="third gym training" style="width:150px;height:150px;">
+                        </div>
+                        <div class="right-content">
+                            <h4>REPORTS</h4>
+                            <p>Get personalized reports and suggestions based on your fitness regimen.</p>
+                            <a href="#" class="text-button">Discover More</a>
+                        </b>
+                    </b>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </b>
+    </b>
+</b>
+<!-- ***** Testimonials Ends ***** -->
+
+<!-- ***** Contact Us Area Starts ***** -->
+<section class="section" id="contact-us">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div id="map">
+                  <iframe src=//www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.6420127452416!2d77.6430974!3d13.058444000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17578c79da7d%3A0xe96dcd8e2b982f8e!2sKristu%20Jayanti%20College%2C%20Autonomous!5e0!3m2!1sen!2sin!4v1616394103306!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>" width="100%" height="600px" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="contact-form">
+                    <form id="contact" action="" method="post">
+                      <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                          <fieldset>
+                            <input name="name" type="text" id="name" placeholder="Your Name*" required="">
+                          </fieldset>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                          <fieldset>
+                            <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email*" required="">
+                          </fieldset>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                          <fieldset>
+                            <input name="subject" type="text" id="subject" placeholder="Subject">
+                          </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                          <fieldset>
+                            <textarea name="message" rows="6" id="message" placeholder="Message" required=""></textarea>
+                          </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                          <fieldset>
+                            <button type="submit" id="form-submit" class="main-button">Send Message</button>
+                          </fieldset>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Contact Us Area Ends ***** -->
+
+<!-- ***** Footer Start ***** -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; 2020 Training Studio
+                
+                - Designed by <a rel="nofollow" href="https://templatemo.com" class="tm-text-link" target="_parent">TemplateMo</a></p>
+                
+                <!-- You shall support us a little via PayPal to info@templatemo.com -->
+                
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="assets/js/jquery-2.1.0.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="assets/js/popper.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<!-- Plugins -->
+<script src="assets/js/scrollreveal.min.js"></script>
+<script src="assets/js/waypoints.min.js"></script>
+<script src="assets/js/jquery.counterup.min.js"></script>
+<script src="assets/js/imgfix.min.js"></script> 
+<script src="assets/js/mixitup.js"></script> 
+<script src="assets/js/accordions.js"></script>
+
+<!-- Global Init -->
+<script src="assets/js/custom.js"></script>
+
+
+
+</body>
+</html>                            
+
