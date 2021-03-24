@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bootstrap Simple Navbar with Search Box</title>
+<title>The Fit Fact</title>
 <link href="https://fonts.googleapis.com/css?family=Raleway|Open+Sans" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -234,12 +234,9 @@ https://templatemo.com/tm-548-training-studio
     <div class="video-overlay header-text">
         <STYle>
             /* Style the video: 100% width and height to cover the entire window */
-#myVideo {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
+#bg-video {
+  z-index:100;
+  position: relative;
 }
 
 /* Add some content at the bottom of the video/page */
@@ -251,7 +248,9 @@ https://templatemo.com/tm-548-training-studio
   width: 100%;
   padding: 20px;
 }
-
+#ex1{
+  padding-left: 50px;
+}
 /* Style the button used to pause/play the video */
 #myBtn {
   width: 200px;
@@ -267,8 +266,14 @@ https://templatemo.com/tm-548-training-studio
   background: #ddd;
   color: black;
 }
-        </STYle>
-        <div class="caption">
+
+#titles{
+  padding: 50px;
+  z-index:1;
+}
+</STYle>
+
+        <div class="caption" id="titles">
             <h6>WORK HARDER, WORK SMARTER</h6>
             <h2>PERSONALIZED PREDICTIONS <em></em></h2>
             <div class="main-button scroll-to-section">
@@ -339,19 +344,19 @@ https://templatemo.com/tm-548-training-studio
         <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div id="map">
-                  <iframe src=//www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.6420127452416!2d77.6430974!3d13.058444000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17578c79da7d%3A0xe96dcd8e2b982f8e!2sKristu%20Jayanti%20College%2C%20Autonomous!5e0!3m2!1sen!2sin!4v1616394103306!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>" width="100%" height="600px" frameborder="0" style="border:0" allowfullscreen></iframe>
+                  <iframe src=//www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.6420127452416!2d77.6430974!3d13.058444000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17578c79da7d%3A0xe96dcd8e2b982f8e!2sKristu%20Jayanti%20College%2C%20Autonomous!5e0!3m2!1sen!2sin!4v1616394103306!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe><width="100%" height="600px" frameborder="0" style="border:0" allowfullscreen></iframe>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-xs-12" id="ex1">
                 <div class="contact-form">
                     <form id="contact" action="" method="post">
                       <div class="row">
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-12 col-sm-12">
                           <fieldset>
                             <input name="name" type="text" id="name" placeholder="Your Name*" required="">
                           </fieldset>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-12 col-sm-12">
                           <fieldset>
                             <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email*" required="">
                           </fieldset>
