@@ -2,8 +2,12 @@ from flask import Blueprint, render_template,redirect,url_for,request,flash
 import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
+from flask import session
 
 auth = Blueprint('auth', __name__)
+
+output=0
+
 
 @auth.route('/login')
 def login():
@@ -26,7 +30,7 @@ def signup_post():
     user= User.query.filter_by(email=email).first()
 
     if user:
-        return redirect(url_for('auth'.login))    
+        return redirect(url_for('auth.login'))    
 
 @auth.route('/about')
 def about():
@@ -47,6 +51,8 @@ def predict():
     prediction = model.predict(final_features)
 
     output = round(prediction[0], 2)
+    redirect(url_for('auth.exposition'))
+    session['my_var'] = output
 
     return render_template('stress.html', prediction_text='Your Stress Level is {}'.format(output))
 
@@ -59,4 +65,10 @@ def results():
     output = prediction[0]
     redirect(url_for('auth'.home))
     return jsonify(output)
+
+
+@auth.route('/exposition',methods=['GET','POST'])
+def exposition():
+    value = session.get('my_var', None)
+    return render_template('report.html', value=value)
 
