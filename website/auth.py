@@ -47,6 +47,8 @@ def home():
 def predict():
     model = pickle.load(open('model.pkl', 'rb'))
     int_features = [int(x) for x in request.form.values()]
+    for x in request.form.keys():
+        session[x] =  request.form.get(x)
     final_features = [np.array(int_features)]
     prediction = model.predict(final_features)
 
@@ -70,5 +72,7 @@ def results():
 @auth.route('/exposition',methods=['GET','POST'])
 def exposition():
     value = session.get('my_var', None)
-    return render_template('report.html', value=value)
+    Mood = session.get('Mood', None)
+    Sleep = session.get('Hours of Sleep', None)
+    return render_template('report.html', value=int(value), mood = int(Mood), sleep = int(Sleep))
 
