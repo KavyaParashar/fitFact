@@ -216,15 +216,57 @@ https://templatemo.com/tm-548-training-studio
                 </nav>
             </div>
 			
-  {% if value<3: %}
-        Good going! Keep up that mood. And don't forget to keep going for walks!
-  {% elif value <= 6: %}
-        Just a bit of stress? Understandable. We all have reasons, don't we? Have you tried keeping up with 8 hours of sleep? Maybe some more of physical activities will help too.
-  {% elif value<9 : %}
-		Hey you okay? Seems like you have got a lot of stress. You probably need to do more of things that elevate your mood. And also about sleep, been too busy? Try taking some hobbies and practice them. Eating something you love, cheating on your diet once in a while shall do no harm! Take care of your health!
-  {% else: %}
-		High alert! You have moe stress than 90% of people! Need to elevate your mood! You seem to have been not taking up walks or sleeping well. You'd need to visit a specialist if this pattern continues!
-  {%endif%}
+  	{% if value<3: %}
+  		{% if mood>200: %}
+        	Good going! Keep up that mood. And don't forget to keep going for walks!
+  		{% else: %}
+  			Good going! Keep up that health. Do more of things that's uplifting your mood!!
+		{%endif%}
+
+  	{% elif value <= 6: %}
+	    Just a bit of stress? Understandable. We all have reasons, don't we?
+		{%if mood>=200:%}
+			Do more of things that's uplifting your mood!
+			{%if sleep<7: %}
+				Have you tried keeping up with 8 hours of sleep?
+			{%else:%}
+				Keep up with your sleep hours. But hey! Don't sleep for more than 10 hours! Maybe some more of physical activities will help too.
+			{%endif%}
+
+		{%else:%}
+			Hey! You seem to be a little off. Why that mood? Anything to make your mood better?
+			{%if sleep<7: %}
+				Have you tried keeping up with 8 hours of sleep? Well, you sure need to.
+			{%else:%}
+				Keep up with your sleep hours. But hey! Don't sleep for more than 10 hours! Maybe some more of physical activities will help too.
+			{%endif%}
+		{%endif%}
+
+
+ 	{% elif value<9 : %}
+		Hey you okay? Seems like you have got a lot of stress.
+		{%if mood>=200:%}
+			Glad that you have a mood this good despite stress. That's the way you go!
+			{%if sleep<7: %}
+				Have you tried keeping up with 8 hours of sleep? Well, you sure need to.
+			{%else:%}
+				Keep up with your sleep hours. But hey! Don't sleep for more than 10 hours! Maybe some more of physical activities will help too.
+			{%endif%}
+		{%else:%}
+			You probably need to do more of things that elevate your mood.
+			{%if sleep<7: %}
+				And also about sleep, been too busy? Have you tried keeping up with 8 hours of sleep? Well, you sure need to. 
+				Try taking some hobbies and practice them. Eating something you love, cheating on your diet once in a while shall do no harm! Take care of your health!
+			{%else:%}
+				Keep up with your sleep hours. But hey! Don't sleep for more than 10 hours! Maybe some more of physical activities will help too. Try taking some hobbies and practice them. Eating something you love, cheating on your diet once in a while shall do no harm! Take care of your health!
+			
+			{%endif%}
+		{%endif%}
+			 
+	
+	{% else: %}
+		High alert! You have more stress than 90% of people! Need to elevate your mood! You seem to have been not taking up walks or sleeping well. You'd need to visit a specialist if this pattern continues!
+  	{%endif%}
 
 <br></br>
         </div>
