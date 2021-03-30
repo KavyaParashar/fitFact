@@ -1,8 +1,10 @@
-from flask import Flask
-from flask_sqlalchemy import sqlalchemy
+import numpy as np
+from flask import Flask, request, jsonify, render_template
+import pickle
+from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
-db-sqlalchemy()
+db = SQLAlchemy()
 
 def create_app():
      app=Flask(__name__,template_folder='templates')
@@ -20,3 +22,4 @@ def create_app():
      app.register_blueprint(auth, url_prefix='/')
     
      return app
+
