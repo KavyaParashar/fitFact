@@ -36,37 +36,52 @@ def logout():
 def sign_up():
     return render_template("sign_up.html")
 
-def signup_post(): 
-    email=str(request.form['email'])
-    username=str(request.form['username'])
-    password=str(request.form['password'])
+#def signup_post(): 
+@auth.route('/adduser',methods=['GET','POST','DELETE'])
+
+def add():
+    email=request.form.get("u_email")
+    username=request.form.get("username")
+    password=request.form.get("u_password")
 
     cursor=conn.cursor()
-    cursor.execute("INSERT INTO sign_up (Email,Username,Password)values(%s,%s,%s)", (email,username,password))
+    cursor.execute("""INSERT INTO `sign_up` (`Email`,`Username`,`Password`) VALUES ('{}','{}','{}')""".format(email,username,password))
     conn.commit()
-    return redirect(url_for("auth.login"))
+    flash('User created successfully!')
+    return 'user registered succesfully'
 
 
 @auth.route("/checkuser",methods=["POST",'GET'])
 def check():
-    username=request.form.get("username")
-    password=request.form.get('password1')
-    print(username)
-    print(password)
 
-    cursor.execute("""SELECT * FROM `sign_up` WHERE  `Password` LIKE '{}' AND `username` LIKE `username`""".format(password,username))
-    users=cursor.fetchall()
-    print(users)
+    cursor = conn.cursor()
+    sql = """SELECT `Username` as username FROM `sign_up` """
+    cursor.execute(sql)
+    alist = cursor.fetchall()
+    [i[0] for i in alist]
+
+    if request.method=='POST':
+        session.pop('user_name',None)
+
+        username=request.form.get("username")
+        password=request.form.get('password1')
+        print(username)
+        print(password)
+
+        cursor.execute("""SELECT * FROM `sign_up` WHERE  `Password` LIKE '{}' AND `username` LIKE `username`""".format(password,username))
+        users=cursor.fetchall()
+        print(users)
     
 
-    if len(users) > 0:
-        flash('You were successfully logged in')
-        return render_template("dashboard.html")
+        if len(users) > 0:
+            flash('You were successfully logged in')
+            session['user_name']=alist[0]
+            return render_template("dashboard.html")
 
-    else:
-        flash("INCORRECT USERNAME OR PASSWORD! PLEASE TRY AGAIN!")
+        else:
+            flash("INCORRECT USERNAME OR PASSWORD! PLEASE TRY AGAIN!")
 
-        return render_template("login.html")
+            return render_template("login.html")
     
 
    # user= User.query.filter_by(email=email).first()
