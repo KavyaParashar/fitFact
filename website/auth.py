@@ -3,13 +3,28 @@ import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
 from flask import session
+from flask import Flask
+from flask_mysqldb import MySQL
+import MySQLdb
+import mysql.connector
+from datetime import timedelta
 
 auth = Blueprint('auth', __name__)
 
+app=Flask(__name__)
+app.secret_key="0000"
+conn=mysql.connector.connect(host="localhost",user="root",password="",db="fit fact")
+if(conn):
+    print("connection succesful")
+cursor=conn.cursor()
+
+
 output=0
 
+    
 
-@auth.route('/login')
+
+@auth.route('/login',methods=['POST','GET','DELETE'])
 def login():
     return render_template("login.html",text="testing")
 
@@ -17,20 +32,62 @@ def login():
 def logout():
     return "<p> Log out </p>"
 
-@auth.route('/sign-up')
+@auth.route('/sign-up',methods=['GET','POST','DELETE'])
 def sign_up():
     return render_template("sign_up.html")
 
-@auth.route('/signup',methods=['post'])
-def signup_post():
-    email=request.form.get('email')
-    username=request.form.get('name')
-    password=request.form.get('password')
+#def signup_post(): 
+@auth.route('/adduser',methods=['GET','POST','DELETE'])
 
-    user= User.query.filter_by(email=email).first()
+def add():
+    email=request.form.get("u_email")
+    username=request.form.get("username")
+    password=request.form.get("u_password")
 
-    if user:
-        return redirect(url_for('auth.login'))    
+    cursor=conn.cursor()
+    cursor.execute("""INSERT INTO `sign_up` (`Email`,`Username`,`Password`) VALUES ('{}','{}','{}')""".format(email,username,password))
+    conn.commit()
+    flash('User created successfully!')
+    return 'user registered succesfully'
+
+
+@auth.route("/checkuser",methods=["POST",'GET'])
+def check():
+
+    cursor = conn.cursor()
+    sql = """SELECT `Username` as username FROM `sign_up` """
+    cursor.execute(sql)
+    alist = cursor.fetchall()
+    [i[0] for i in alist]
+
+    if request.method=='POST':
+        session.pop('user_name',None)
+
+        username=request.form.get("username")
+        password=request.form.get('password1')
+        print(username)
+        print(password)
+
+        cursor.execute("""SELECT * FROM `sign_up` WHERE  `Password` LIKE '{}' AND `username` LIKE `username`""".format(password,username))
+        users=cursor.fetchall()
+        print(users)
+    
+
+        if len(users) > 0:
+            flash('You were successfully logged in')
+            session['user_name']=alist[0]
+            return render_template("dashboard.html")
+
+        else:
+            flash("INCORRECT USERNAME OR PASSWORD! PLEASE TRY AGAIN!")
+
+            return render_template("login.html")
+    
+
+   # user= User.query.filter_by(email=email).first()
+
+    #if user:
+     #   return redirect(url_for('auth.login'))    
 
 @auth.route('/about')
 def about():
@@ -76,3 +133,6 @@ def exposition():
     Sleep = session.get('Hours of Sleep', None)
     return render_template('report.html', value=int(value), mood = int(Mood), sleep = int(Sleep))
 
+@auth.route('/analyze', methods=['GET','POST'])
+def analyze():
+    return render_template('analyze.html')
