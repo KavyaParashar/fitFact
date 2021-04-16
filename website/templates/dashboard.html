@@ -1,3 +1,31 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} 
+{% block content %}
+
+
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Signed in succesfully!!</h4>
+            <p> You can now enjoy our services!</p>
+            <hr>
+            <p class="mb-0">Analyze your way  into fitness !
+              {% if session['username'] %}
+            <p>
+                You have logged in as {{session['username']}}
+
+            </p>
+              {% else %}
+              <p> Not logged in yet</p>
+              {% endif %}
+            </p>
+          </div>
+        {% endfor %}
+    {% endif %} 
+{% endwith %}   
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -147,7 +175,9 @@
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
 				<input type="text" class="form-control" >
-				<li><a href="/" id="home">Log out</a></li>  	
+        {% if session ['username'] %}
+				<li><a href="/logout" id="home">Log out</a></li>
+        {% endif %} 	
 				</span>
 			</div>
 
@@ -155,22 +185,7 @@
 	</div>
 </nav>
 <div class="container">
-{%block content%}
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for msg in messages %}
-        <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">Signed in succesfully!!</h4>
-            <p> You can now enjoy our services!</p>
-            <hr>
-            <p class="mb-0">Analyze your way  into fitness !
-            </p>
-          </div>
-        {% endfor %}
-    {% endif %} 
-{% endwith %}   
 
-{%endblock%}
 </div>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -434,5 +449,6 @@ https://templatemo.com/tm-548-training-studio
 
 
 </body>
-</html>                            
+</html>              
+{% endblock %}              
 

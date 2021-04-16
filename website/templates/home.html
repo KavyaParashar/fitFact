@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} 
+{% extends "base.html" %} {% block title %}Login{% endblock %} 
 {% block content %}
 {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -8,9 +8,11 @@
             <p> Hope you enjoyed our services!</p>
             <hr>
             <p class="mb-0">Analyze your way back into fitness soon!
+            
             </p>
           </div>
         {% endfor %}
     {% endif %} 
-{% endwith %}   
-{% endblock %}
+{% endwith %}  
+{% endblock %} 
+
