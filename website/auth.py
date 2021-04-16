@@ -4,16 +4,25 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 from flask import session
 from flask import Flask
-from flask_mysqldb import MySQL
+from flask_mysqldb import MySQL,MySQLdb
 import MySQLdb
 import mysql.connector
 from datetime import timedelta
+import bcrypt
+from bcrypt import checkpw
+from flask_bcrypt import Bcrypt
+from hashlib import md5
 
 auth = Blueprint('auth', __name__)
 
+bcrypt1=Bcrypt()
 app=Flask(__name__)
+mysql1=MySQL(app)
 app.secret_key="0000"
+app.config['MySQL_HOST']= 'localhost'
+
 conn=mysql.connector.connect(host="localhost",user="root",password="",db="fit fact")
+
 if(conn):
     print("connection succesful")
 cursor=conn.cursor()
@@ -30,6 +39,8 @@ def login():
 
 @auth.route('/logout')
 def logout():
+    session.clear()
+    return render_template('home.html')
     return "<p> Log out </p>"
 
 @auth.route('/sign-up',methods=['GET','POST','DELETE'])
@@ -42,52 +53,63 @@ def sign_up():
 def add():
     email=request.form.get("u_email")
     username=request.form.get("username")
-    password=request.form.get("u_password")
+    password=request.form.get("u_password").encode('utf-8')
+    hashpwd=bcrypt.hashpw(password,bcrypt.gensalt())
 
     cursor=conn.cursor()
-    cursor.execute("""INSERT INTO `sign_up` (`Email`,`Username`,`Password`) VALUES ('{}','{}','{}')""".format(email,username,password))
+    cursor.execute("INSERT INTO sign_up (Email,Username,Password) VALUES (%s, %s, %s)",(email,username,password,))
     conn.commit()
+    session['name']= username
+    session['email']= email
+
     flash('User created successfully!')
-    return 'user registered succesfully'
+    return render_template('login.html')
+
+@app.before_request
+def before_request():
+   g.username = None
+   if 'username' in session:
+       g.username = session['username']
 
 
 @auth.route("/checkuser",methods=["POST",'GET'])
 def check():
 
-    cursor = conn.cursor()
-    sql = """SELECT `Username` as username FROM `sign_up` """
-    cursor.execute(sql)
-    alist = cursor.fetchall()
-    [i[0] for i in alist]
+    if request.method=="POST":
+        username=request.form['username']
+        password=request.form['password1'].encode('utf-8')
+        hashed=bcrypt.hashpw(password,bcrypt.gensalt())
 
-    if request.method=='POST':
-        session.pop('user_name',None)
+        cur=conn.cursor(dictionary=True, buffered=True)
+        cur.execute("SELECT * FROM sign_up WHERE Email =%s", [username])
 
-        username=request.form.get("username")
-        password=request.form.get('password1')
-        print(username)
-        print(password)
+        if cur is not None:
+            data = cur.fetchone()
+            try:
+                password1 = data['Password']
+            except Exception:
+                error = 'Invalid Username or Password'
+                flash(" ")
+                return render_template('login.html', error=error)
 
-        cursor.execute("""SELECT * FROM `sign_up` WHERE  `Password` LIKE '{}' AND `username` LIKE `username`""".format(password,username))
-        users=cursor.fetchall()
-        print(users)
-    
 
-        if len(users) > 0:
-            flash('You were successfully logged in')
-            session['user_name']=alist[0]
-            return render_template("dashboard.html")
+            if bcrypt.checkpw(password1.encode('utf-8'),hashed):
+                app.logger.info('Password Matched')
+                session['logged_in'] = True
+                session['username'] = username
+
+                flash('You are now logged in', 'success')
+                cur.close()
+                return render_template('dashboard.html')
+        
 
         else:
-            flash("INCORRECT USERNAME OR PASSWORD! PLEASE TRY AGAIN!")
+            error = 'Invalid Username or Password'
+            return render_template('login.html', error=error)
+ 
+        
 
-            return render_template("login.html")
-    
 
-   # user= User.query.filter_by(email=email).first()
-
-    #if user:
-     #   return redirect(url_for('auth.login'))    
 
 @auth.route('/about')
 def about():
@@ -133,3 +155,6 @@ def exposition():
     Sleep = session.get('Hours of Sleep', None)
     return render_template('report.html', value=int(value), mood = int(Mood), sleep = int(Sleep))
 
+@auth.route('/analyze', methods=['GET','POST'])
+def analyze():
+    return render_template('analyze.html')
