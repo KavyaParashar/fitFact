@@ -137,8 +137,8 @@
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#">Services <b class="caret"></b></a>
 				<ul class="dropdown-menu">					
 					<li><a href="/predict">Predict Stress</a></li>
-					<li><a href="/">Analyze Fitness</a></li>
-					<li><a href="/">Past data analysis</a></li>
+					<li><a href="/analyze">Analyze Fitness</a></li>
+					<li><a href="/analyze">Past data analysis</a></li>
 				</ul>
 			</li>
 			<li><a href="/">Contact</a></li>
@@ -183,42 +183,10 @@
     </video> 
 	<div class="card">
 		<div class="container" style="text-align:center">
-			<h3>Analyze your fitness data at one click!</h3>
-			<form  method = "POST" enctype="multipart/form-data" action = "/success" >
-			<center>
-				<p>
-					Upload excel file with fitness data to analyze visually: 	
-					<input type="file" name="excel" id="excelfile" required accept=".csv" onchange="return fileValidation()">
-					<br>
-					Enter the metric to be visualised:
-					<input type = "text" name="variable" placeholder="Eg. day1.csv" style="margin-left: 10px;" required>
-				</p>
-				<p>
-					<input type="submit" value="Upload File" name="submit">
-				</p>
-			</center>	
-			</form>	
-			
+			<img src="/static/image.jpg" width="640" height="480"/>
 		</div>
 	</div>
-	<script>
-        function fileValidation() {
-            var fileInput = document.getElementById('excelfile');
-            var filePath = fileInput.value;
-          
-            // Allowing file type
-            var allowedExtensions = /(\.csv)$/i;
-              
-            if (!allowedExtensions.exec(filePath)) {
-                alert('Invalid file type');
-                fileInput.value = '';
-            } 
-            else 
-            {
-				return false;
-			}
-		}
-	</script>
+	
    
 <STYle>
 /* Style the video: 100% width and height to cover the entire window */
@@ -234,10 +202,9 @@
   position: absolute;
   z-index:2;
   background-color: rgba(250, 248, 242, 0.808);
-  margin-left: 10%;
-  margin-right: 40%;
-  margin-top: 2%;
-  margin-bottom: 60%;
+  align-items: center;
+  padding: 5%;
+  margin:0% 7%;
 }
 
 /* On mouse-over, add a deeper shadow */
